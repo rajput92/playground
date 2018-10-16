@@ -10,11 +10,16 @@ playground:
   extra_hosts:
     - "playground.dev:127.0.0.1"
   links:
-    - dbserver
+    - mongodb
 
-dbserver:
-  image: mysql
+mongodb:
+  image: mongo
   ports:
-    - "3306:3306"
-  environment:
-    MYSQL_ROOT_PASSWORD: root
+    - "27017:27017"
+
+      #dbserver:
+      #image: mysql
+      #ports:
+      #- "3306:3306"
+      #  environment:
+      # MYSQL_ROOT_PASSWORD: root

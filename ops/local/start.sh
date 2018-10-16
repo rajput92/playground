@@ -1,24 +1,25 @@
 #!/bin/bash
 
 # wait for dbserver to come up
-while ! nc -z dbserver 3306 ; do
+while ! nc -z mongodb 27017 ; do
     sleep 10;
-    echo "dbserver not up yet...."
+    echo "mongodb not up yet...."
 done
 
 # setup database
 echo "create database"
-mysql -h dbserver -u root -proot -e "CREATE DATABASE IF NOT EXISTS playground;"
-mysql -h dbserver -u root -proot -e "GRANT SELECT, INSERT, UPDATE, DELETE,EXECUTE, ALTER, CREATE, DROP, CREATE, CREATE ROUTINE ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
-mysql -h dbserver -u root -proot -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
-mysql -h dbserver -u root -proot -e "GRANT SELECT, INSERT, UPDATE, DELETE,EXECUTE, ALTER, CREATE, DROP, CREATE, CREATE ROUTINE ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;"
-mysql -h dbserver -u root -proot -e "GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+mongo file.js --username root --password root
+#mysql -h dbserver -u root -proot -e "CREATE DATABASE IF NOT EXISTS playground;"
+#mysql -h dbserver -u root -proot -e "GRANT SELECT, INSERT, UPDATE, DELETE,EXECUTE, ALTER, CREATE, DROP, CREATE, CREATE ROUTINE ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+#mysql -h dbserver -u root -proot -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+#mysql -h dbserver -u root -proot -e "GRANT SELECT, INSERT, UPDATE, DELETE,EXECUTE, ALTER, CREATE, DROP, CREATE, CREATE ROUTINE ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+#mysql -h dbserver -u root -proot -e "GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;"
 
 # upgrade schema to latest version
 echo "update playground database"
-pushd ./database
-    db-migrate up
-popd
+#pushd ./database
+#    db-migrate up
+#popd
 
 # run debugger
 node-inspector --no-preload --web-port=8080 --save-live-edit=true --hidden=node_modules &

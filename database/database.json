@@ -1,11 +1,10 @@
 {
     "dev": {
-        "driver": "mysql",
-        "host": "dbserver",
+        "driver": "mongodb",
+        "host": "mongodb",
         "user": "root",
         "password": "root",
         "database": "playground",
         "multipleStatements": true
-    },
-    "sql-file": true
+    }
 }
