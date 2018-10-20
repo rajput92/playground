@@ -14,3 +14,14 @@ spec:
         image: 280500817869.dkr.ecr.us-east-1.amazonaws.com/playground:latest
         ports:
         - containerPort: 8080
+	command: ["/bin/bash", "/srv/ops/local/main.sh"]
+        volumeMounts:
+    	   - mountPath: /srv
+             name: test-volume
+      volumes:
+      - name: test-volume
+      hostPath:
+        # directory location on host
+        path: ./
+        # this field is optional
+        type: Directory
