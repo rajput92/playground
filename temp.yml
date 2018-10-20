@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: sampleNodeJSDev
+  name: samplenodejsdev
 spec:
   replicas: 1
   template:
@@ -11,6 +11,6 @@ spec:
     spec:
       containers:
       - name: playground
-        image: 280500817869.dkr.ecr.us-east-1.amazonaws.com/playground
+        image: 280500817869.dkr.ecr.us-east-1.amazonaws.com/playground:latest
         ports:
         - containerPort: 8080
