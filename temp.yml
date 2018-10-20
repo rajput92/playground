@@ -16,8 +16,8 @@ spec:
         - containerPort: 8080
         command: ["/bin/bash", "/srv/ops/local/main.sh"]
         volumeMounts:
-    	   - mountPath: /srv
-             name: test-volume
+        - mountPath: /srv
+            name: test-volume
       volumes:
       - name: test-volume
       hostPath:
