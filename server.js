@@ -1,26 +1,18 @@
-var express = require('express');
-var mysql = require('mysql');
-var app = express();
-
-var pool = mysql.createPool({
-    connectionLimit: 10,
-    host: 'dbserver',
-    user: 'root',
-    password: 'root',
-    database: 'playground'
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+ 
+// Connection URL
+const url = 'mongodb://mongodb:27017';
+ 
+// Database Name
+const dbName = 'myproject';
+ 
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+ 
+  const db = client.db(dbName);
+ 
+  client.close();
 });
-
-app.get('/', function(req, res) {
-    res.send('Hello World!');
-});
-
-app.get('/db', function(req, res, next) {
-    pool.query('SELECT * FROM test', function(err, rows, fields) {
-        if (err) {
-            return next(err);
-        }
-        res.send('Number of rows:' + rows.length);
-    });
-});
-
-app.listen(80);
