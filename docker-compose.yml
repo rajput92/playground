@@ -1,25 +1,22 @@
-playground:
-  build: ./
-  dockerfile: docker
-  ports:
-    - "80:80"
-    - "8080:8080"
-  volumes:
-    - ./:/srv
-  command: /bin/bash /srv/ops/local/main.sh
-  extra_hosts:
-    - "playground.dev:127.0.0.1"
-  links:
-    - mongodb
-
-mongodb:
-  image: mongo
-  ports:
-    - "27017:27017"
-
-      #dbserver:
-      #image: mysql
-      #ports:
-      #- "3306:3306"
-      #  environment:
-      # MYSQL_ROOT_PASSWORD: root
+version: '3'
+services:
+  nginx:
+    image: nginx
+    deploy:
+      replicas: 1
+      volumes:
+      - ./default.conf:/etc/nginx/conf.d
+  mongodb:
+    image: mongo
+    volumes:
+    - ./mongod.conf:/etc
+  mongoadmin:
+    build: 
+      context: ../adminMongo/
+      dockerfile: DockerMongoAdmin
+  redis:
+    image: redis
+  nodejs:
+    image: node
+	
+	
